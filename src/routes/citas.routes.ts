@@ -1,5 +1,5 @@
 import express from "express";
-import { getCitas, confirmarCita } from "../controllers/citas.controller.js";
+import { getCitas, confirmarCita } from "../controllers/citas.controller.ts";
 
 const router = express.Router();
 
