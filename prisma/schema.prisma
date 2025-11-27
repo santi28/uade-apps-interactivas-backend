@@ -1,28 +1,62 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlserver"
 }
 
 model ObraSocial {
-  id Int @id @default(autoincrement())
-
+  id            Int      @id @default(autoincrement())
   nombre        String
-  codigoInterno String? @unique
-  activo        Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  codigoInterno String   @unique
+  activo        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("obra_sociales")
 }
+
+model Medico {
+  id           Int      @id @default(autoincrement())
+  nombre       String
+  especialidad String
+  usuario      String
+  password     String
+  email        String
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("medico")
+}
+
+model Cita {
+  id          Int      @id @default(autoincrement())
+  fecha       DateTime
+  motivo      String
+  pacienteId  Int
+  medicoId    Int
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("citas")
+}
+
+model Paciente {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  apellido  String
+  dni       String   @unique
+  telefono  String?
+  email     String?
+  activo    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pacientes")
+}
+
+

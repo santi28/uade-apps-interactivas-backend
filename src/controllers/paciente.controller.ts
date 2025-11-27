@@ -1,17 +1,49 @@
-import { pacienteService } from "../services/paciente.service.js";
+import { pacienteService } from "../services/paciente.service";
 
-export const getPacientes = (req, res) => {
-  const pacientes = pacienteService.obtenerPacientes();
-  res.json(pacientes);
+export const getPacientes = async (req: any, res: any) => {
+  try {
+    const pacientes = await pacienteService.listar();
+    res.json(pacientes);
+  } catch (e) {
+    res.status(500).json({ error: "Error listando pacientes" });
+  }
 };
 
-export const getPacienteById = (req, res) => {
-  const id = parseInt(req.params.id);
-  const paciente = pacienteService.obtenerPacientePorId(id);
-
-  if (paciente) {
+export const getPaciente = async (req: any, res: any) => {
+  try {
+    const paciente = await pacienteService.obtener(Number(req.params.id));
     res.json(paciente);
-  } else {
-    res.status(404).json({ message: "Paciente no encontrado" });
+  } catch (e) {
+    res.status(500).json({ error: "Error obteniendo paciente" });
+  }
+};
+
+export const createPaciente = async (req: any, res: any) => {
+  try {
+    const paciente = await pacienteService.crear(req.body);
+    res.json(paciente);
+  } catch (e) {
+    res.status(400).json({ error: "Error creando paciente" });
+  }
+};
+
+export const updatePaciente = async (req: any, res: any) => {
+  try {
+    const paciente = await pacienteService.actualizar(
+      Number(req.params.id),
+      req.body
+    );
+    res.json(paciente);
+  } catch (e) {
+    res.status(400).json({ error: "Error actualizando paciente" });
+  }
+};
+
+export const deletePaciente = async (req: any, res: any) => {
+  try {
+    await pacienteService.eliminar(Number(req.params.id));
+    res.json({ message: "Paciente eliminado correctamente" });
+  } catch (e) {
+    res.status(400).json({ error: "Error eliminando paciente" });
   }
 };

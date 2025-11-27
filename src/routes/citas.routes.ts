@@ -1,12 +1,18 @@
-import express from "express";
-import { getCitas, confirmarCita } from "../controllers/citas.controller.ts";
+import { Router } from "express";
+import {
+  getCitas,
+  getCita,
+  createCita,
+  updateCita,
+  deleteCita
+} from "../controllers/citas.controller";
 
-const router = express.Router();
+const router = Router();
 
-// Obtener todas las citas
 router.get("/", getCitas);
-
-// Confirmar una cita
-router.put("/:id/confirmar", confirmarCita);
+router.get("/:id", getCita);
+router.post("/", createCita);
+router.put("/:id", updateCita);
+router.delete("/:id", deleteCita);
 
 export default router;

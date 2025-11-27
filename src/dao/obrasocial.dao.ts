@@ -1,21 +1,21 @@
 import { PrismaClient } from "../generated/prisma";
 const prisma = new PrismaClient();
 
-export const pacienteDAO = {
-  findAll: () => prisma.paciente.findMany(),
+export const obraSocialDAO = {
+  findAll: () => prisma.obraSocial.findMany(),
 
   findById: (id: number) =>
-    prisma.paciente.findUnique({ where: { id } }),
+    prisma.obraSocial.findUnique({ where: { id } }),
 
   create: (data: any) =>
-    prisma.paciente.create({ data }),
+    prisma.obraSocial.create({ data }),
 
   update: (id: number, data: any) =>
-    prisma.paciente.update({
+    prisma.obraSocial.update({
       where: { id },
       data,
     }),
 
   delete: (id: number) =>
-    prisma.paciente.delete({ where: { id } }),
+    prisma.obraSocial.delete({ where: { id } }),
 };

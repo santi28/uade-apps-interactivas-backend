@@ -1,12 +1,18 @@
 import { Router } from "express";
-import { getPacientes, getPacienteById } from "../controllers/paciente.controller.js";
+import {
+  getPacientes,
+  getPaciente,
+  createPaciente,
+  updatePaciente,
+  deletePaciente,
+} from "../controllers/paciente.controller";
 
 const router = Router();
 
-// GET /paciente
 router.get("/", getPacientes);
-
-// GET /paciente/:id
-router.get("/:id", getPacienteById);
+router.get("/:id", getPaciente);
+router.post("/", createPaciente);
+router.put("/:id", updatePaciente);
+router.delete("/:id", deletePaciente);
 
 export default router;

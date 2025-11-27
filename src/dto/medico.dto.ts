@@ -1,8 +1,15 @@
-export class MedicoDTO {
-  constructor({ id, nombre, especialidad, email }) {
-    this.id = id;
-    this.nombre = nombre;
-    this.especialidad = especialidad;
-    this.email = email;
-  }
+export interface CrearMedicoDTO {
+  nombre: string;
+  especialidad: string;
+  usuario: string;
+  password: string;
+  email: string;
+}
+
+export interface ActualizarMedicoDTO {
+  nombre?: string;
+  especialidad?: string;
+  usuario?: string;
+  password?: string;
+  email?: string;
 }

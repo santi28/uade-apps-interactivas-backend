@@ -1,12 +1,23 @@
-let citas = [
-  { id: 1, paciente: "Juan Pérez", fecha: "2025-10-27", estado: "Solicitada" },
-  { id: 2, paciente: "Laura Díaz", fecha: "2025-10-29", estado: "Solicitada" },
-];
+import { PrismaClient } from "../generated/prisma";
+const prisma = new PrismaClient();
 
-export const getAllCitas = () => citas;
+export const citasDAO = {
+  findAll: () =>
+    prisma.cita.findMany(),
 
-export const updateCitaStatus = (id, nuevoEstado) => {
-  const cita = citas.find((c) => c.id === id);
-  if (cita) cita.estado = nuevoEstado;
-  return cita;
+  findById: (id: number) =>
+    prisma.cita.findUnique({ where: { id } }),
+
+  create: (data: any) =>
+    prisma.cita.create({ data }),
+
+  update: (id: number, data: any) =>
+    prisma.cita.update({
+      where: { id },
+      data,
+    }),
+
+  delete: (id: number) =>
+    prisma.cita.delete({ where: { id } }),
 };
+ 

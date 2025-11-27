@@ -1,12 +1,21 @@
-import express from "express";
-import { getMedico, loginMedico } from "../controllers/medico.controller.js";
+import { Router } from "express";
+import {
+  getMedicos,
+  getMedico,
+  crearMedico,
+  actualizarMedico,
+  eliminarMedico,
+  loginMedico
+} from "../controllers/medico.controller";
 
-const router = express.Router();
+const router = Router();
 
-// Ver perfil del médico
-router.get("/", getMedico);
+router.get("/", getMedicos);
+router.get("/:id", getMedico);
+router.post("/", crearMedico);
+router.put("/:id", actualizarMedico);
+router.delete("/:id", eliminarMedico);
 
-// Login médico / secretaria
 router.post("/login", loginMedico);
 
 export default router;
